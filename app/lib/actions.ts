@@ -108,16 +108,12 @@ export async function updateInvoice(
   redirect('/dashboard/invoices')
 }
 
-export async function deleteInvoice(id: string) {
+export async function deleteInvoice(id: string): Promise<void> {
   try {
     await sql`DELETE FROM invoices WHERE id = ${id}`
     revalidatePath('/dashboard/invoices')
-    return { message: "Invoice deleted" }
   } catch (err) {
     console.log("Error deleting invoice", err)
-    return {
-      message: "Error deleting invoice, please try again."
-    }
   }
 }
 
